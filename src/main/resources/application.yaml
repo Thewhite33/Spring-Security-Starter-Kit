@@ -4,9 +4,9 @@ spring:
 
   # Database Configuration
   datasource:
-    url: jdbc:postgresql://137.131.35.66:5432/auth?options=-c%20TimeZone%3DAsia%2FKolkata
-    username: admin
-    password: OizQeJM9rCAwifjzKZnJ
+    url: jdbc:postgresql://localhost:5432/security_starter_db
+    username: postgres
+    password: your_db_password
     driver-class-name: org.postgresql.Driver
 
   # JPA / Hibernate Configuration
@@ -23,3 +23,21 @@ spring:
 
 server:
   port: 8080
+  
+app:
+  jwt:
+    # Must be at least 256 bits (32 characters) for HS256
+    secret: a7GrdCQdBXOu2cdgKL1re4WbE0aKdhi4Z9QrD3dn3R3
+    expiration-ms: 86400000 # 24 hours in milliseconds
+    refresh-expiration-ms: 604800000 # 7 days (for refresh token)
+
+  rate-limit:
+    enabled: true
+    login:
+      capacity: 10
+      refill-tokens: 10
+      refill-duration-seconds: 60      # 10 attempts per minute per IP
+    register:
+      capacity: 5
+      refill-tokens: 5
+      refill-duration-seconds: 3600    # 5 attempts per hour per IP

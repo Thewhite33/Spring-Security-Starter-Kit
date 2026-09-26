@@ -31,4 +31,31 @@ public class GlobalExceptionHandler {
         Map<String, String> error = Map.of("error", ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.CONFLICT); // 409
     }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidCredentials(InvalidCredentialsException ex) {
+        return new ResponseEntity<>(Map.of("error", ex.getMessage()), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(TokenRefreshException.class)
+    public ResponseEntity<Map<String, String>> handleTokenRefreshException(TokenRefreshException ex) {
+        return new ResponseEntity<>(Map.of("error", ex.getMessage()), HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(RateLimitExceededException.class)
+    public ResponseEntity<Map<String, Object>> handleRateLimitExceeded(RateLimitExceededException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("error", "Too Many Requests");
+        body.put("message", ex.getMessage());
+        body.put("status", 429);
+        body.put("retryAfter", ex.getRetryAfterSeconds());
+        
+        ResponseEntity.BodyBuilder builder = ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS);
+        builder.header("Retry-After", String.valueOf(ex.getRetryAfterSeconds()));
+        builder.header("X-RateLimit-Limit", String.valueOf(ex.getLimit()));
+        builder.header("X-RateLimit-Remaining", "0");
+        builder.header("X-RateLimit-Reset", String.valueOf(ex.getResetSeconds()));
+        
+        return builder.body(body);
+    }
 }
