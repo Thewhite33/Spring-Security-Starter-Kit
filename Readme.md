@@ -104,10 +104,12 @@ Content-Type: application/json
 ```
 ```json
 {
-  "accessToken": "eyJhbGciOiJIUzI1NiJ9...",
-  "refreshToken": "eyJhbGciOiJIUzI1NiJ9...",
+  "message": "Login successful",
+  "accessToken": "eyJhbGciOiJIUzI1NiJ9....",
+  "refreshToken": "eyJhbGciOiJIUzI1NiJ9....",
   "tokenType": "Bearer",
-  "expiresIn": 900
+  "expiresIn": 86400,
+  "refreshExpiresIn": 604800
 }
 ```
 Rate-limited to 5 attempts/min per IP by default. A 429 response includes `Retry-After`.
