@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: SecurityStarter
+
+  # Database Configuration
+  datasource:
+    url: jdbc:postgresql://137.131.35.66:5432/auth?options=-c%20TimeZone%3DAsia%2FKolkata
+    username: admin
+    password: OizQeJM9rCAwifjzKZnJ
+    driver-class-name: org.postgresql.Driver
+
+  # JPA / Hibernate Configuration
+  jpa:
+    hibernate:
+      # 'update' automatically creates/updates tables based on Entities
+      ddl-auto: update 
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    # Useful for seeing exactly what Hibernate is doing in the console
+    open-in-view: false 
+
+server:
+  port: 8080
