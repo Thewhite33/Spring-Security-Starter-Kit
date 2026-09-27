@@ -27,6 +27,13 @@ This is **not** a published library you add as a dependency. You clone this repo
 
 ## 🚀 Quick start
 
+## Renaming this project
+
+1. Rename `SecurityStarterApplication.java` via your IDE's rename refactor
+2. Set `spring.application.name: your-app-name` in `application.yml`
+3. Update `artifactId`/`name` in `pom.xml`
+4. (Optional) Rename the `com.auth.SecurityStarter` package via IDE refactor if you want a fully custom package name
+
 **1. Clone it**
 ```bash
 git clone https://github.com/your-org/security-starter.git
